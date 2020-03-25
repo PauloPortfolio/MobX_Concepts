@@ -58,18 +58,21 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     print('BuildHome');
+
     return Scaffold(
-        appBar: AppBar(title: Text(TITLE_APP)),
-        body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(QUESTION),
-            Observer(
-                builder: (BuildContext context) => Text(
-                    '${store.contObsv} buildObs',
-                    style: Theme.of(context).textTheme.display1)),
-          ]),
-        ),
-        floatingActionButton: FloatingActionButton(
-            onPressed: store.incAction, child: ICON_BUTTON));
+      appBar: AppBar(title: Text(TITLE_APP)),
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(QUESTION),
+          Observer(
+            builder: (BuildContext context) => Text(
+                '${store.contObsv} buildObs',
+                style: Theme.of(context).textTheme.display1),
+          )
+        ]),
+      ),
+      floatingActionButton:
+          FloatingActionButton(onPressed: store.incAction, child: ICON_BUTTON),
+    );
   }
 }
