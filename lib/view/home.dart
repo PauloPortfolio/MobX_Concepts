@@ -22,43 +22,41 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     disposers = [
-      //REACTION 01: ACONTECE NA CONDICAO, E DEPOIS APOS SE REPETIR
+
+      // REACTION 01: EXECUCAO MULTIPLA C/ "DEPENDENCIA DE DISPOSE"
       reaction<int>((fn) => store.contObsv, (contagem) {
-        if (contagem % 2 == 0)
-          Flushbar(
-                  title: "Opa",
-                  message: "E par. Acontece na condicao e depois",
-                  duration: Duration(milliseconds: 700))
-              .show(context);
+        String msg = "";
+        if (contagem % 2 == 0) {
+          msg = "PAR";
+        } else {
+          msg = "IMPAR";
+        }
+        Flushbar(
+                title: msg,
+                message: "${msg}: Condicao e depois",
+                duration: Duration(milliseconds: 700))
+            .show(context);
       }),
 
-//      // REACTION 02: ACONTECE UMA VEZ, E AUTODISPOSE
+      // REACTION 02: EXECUCAO UNICA C/ "AUTO DISPOSE"
       // RETORNA 'BOOLEANA'
 //      when(
 //          (r) => store.contObsv >= 10,
 //          () => Flushbar(
 //                  icon: Icon(Icons.notifications_active),
 //                  title: "Opa",
-//                  message: "E' maior ou igual ao NUMERO 10!!!. Acontece somente no ato da condicao",
+//                  message: "E' maior ou igual ao NUMERO 10!!!",
 //                  duration: Duration(milliseconds: 700))
 //              .show(context)),
 
-      // REACTION 03: DISPARA NA ALTERACAO DO OBSERVABLE
-      //autorun((r) => showFlushBar(context))
     ];
 
     super.initState();
   }
 
 //  @override
-//  void didChangeDependencies() {
-//    autorun((r) => showFlushBar(context));
-//    super.didChangeDependencies();
-//  }
-
-  @override
   void dispose() {
-    //disposando as reactions no fechamento desta view
+    //DISPOSANDO A "REACTION 01" QUE POSSUI "DEPENDENCIA DE DISPOSE"
     disposers.forEach((dispose) => dispose());
     super.dispose();
   }
@@ -74,20 +72,14 @@ class _HomeState extends State<Home> {
           Text(QUESTION),
           Observer(
             builder: (BuildContext context) =>
-                Text('${store.contObsv} buildObs', style: Theme.of(context).textTheme.display1),
+                Text('${store.contObsv} buildObs', style: Theme.of(context).textTheme.headline3),
           )
         ]),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: store.incAction, child: ICON_BUTTON),
+      floatingActionButton: FloatingActionButton(
+        onPressed: store.incrementAction,
+        child: ICON_BUTTON,
+      ),
     );
-  }
-
-  void showFlushBar(BuildContext context) {
-    Flushbar(
-        title: "AUTORUN",
-        icon: Icon(Icons.notifications_active),
-        message: "AUTORUN -> '${store.contObsv}",
-        duration: Duration(milliseconds: 700))
-      ..show(context);
   }
 }

@@ -10,7 +10,7 @@ abstract class StoreInt with Store {
   int contObsv = 0;
 
   @action
-  void incAction() {
+  void incrementAction() {
     contObsv++;
   }
 }

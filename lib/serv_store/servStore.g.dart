@@ -29,10 +29,10 @@ mixin _$ServStore on StoreInt, Store {
   final _$StoreIntActionController = ActionController(name: 'StoreInt');
 
   @override
-  void incAction() {
+  void incrementAction() {
     final _$actionInfo = _$StoreIntActionController.startAction();
     try {
-      return super.incAction();
+      return super.incrementAction();
     } finally {
       _$StoreIntActionController.endAction(_$actionInfo);
     }
