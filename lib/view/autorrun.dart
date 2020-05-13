@@ -12,39 +12,24 @@ class Autorrun extends StatefulWidget {
 }
 
 class _AutorrunState extends State<Autorrun> {
-  //instancia o service_store, dever ser feito em DI
   final store = ServStore();
 
-  //Lista de reactions, que e coletada, para ao fechar a view,
-  //ser disposada
   List<ReactionDisposer> disposers;
 
   @override
   void initState() {
     disposers = [
-
-      // REACTION 01: EXECUCAO MULTIPLA C/ "DEPENDENCIA DE DISPOSE"
-      reaction<int>((fn) => store.contObsv, (contagem) {
-        String msg = "";
-        if (contagem % 2 == 0) {
-          msg = "PAR";
-        } else {
-          msg = "IMPAR";
-        }
-        Flushbar(
-                title: msg,
-                message: "${msg}: Condicao e depois",
-                duration: Duration(milliseconds: 700))
-            .show(context);
-      }),
+      //OBSERVABLE TRACKED: sao aqueles encontrados dentro desta Function Autorun
+      autorun((_) {
+        print('Run in the INITIALIZATION AND each OBSERVABLE TRACKED(${store.contObsv}) change');
+      })
     ];
 
     super.initState();
   }
 
-//  @override
+  @override
   void dispose() {
-    //DISPOSANDO A "REACTION 01" QUE POSSUI "DEPENDENCIA DE DISPOSE"
     disposers.forEach((dispose) => dispose());
     super.dispose();
   }
