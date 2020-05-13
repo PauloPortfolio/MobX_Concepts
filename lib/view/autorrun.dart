@@ -19,9 +19,10 @@ class _AutorrunState extends State<Autorrun> {
   @override
   void initState() {
     disposers = [
-      //OBSERVABLE TRACKED: sao aqueles encontrados dentro desta Function Autorun
+      //OBSERVABLE TRACKED: are inside the 'Function Autorun'
+      //ZERO: was counted 'cause 'INITIALIZATION' is included here
       autorun((_) {
-        print('Run in the INITIALIZATION AND each OBSERVABLE TRACKED(${store.contObsv}) change');
+        print('Run in the INITIALIZATION(ZERO) AND each OBSERVABLE TRACKED(${store.contObsv}) changing after');
       })
     ];
 
@@ -42,10 +43,10 @@ class _AutorrunState extends State<Autorrun> {
       appBar: AppBar(title: Text(TITLE_AUTORRUN)),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(QUESTION_PAGE_AUTORRUN),
+          Center(child: Text(QUESTION_AUTORRUN)),
           Observer(
             builder: (BuildContext context) =>
-                Text('${store.contObsv} buildObs', style: Theme.of(context).textTheme.headline3),
+                Text('${store.contObsv}', style: Theme.of(context).textTheme.headline3),
           )
         ]),
       ),

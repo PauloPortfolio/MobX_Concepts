@@ -5,17 +5,22 @@ const TITLE_APP = "MobX Tests with Reactions";
 const ICON_BUTTON = Icon(Icons.add);
 const APP_DEB_CHECK = false;
 
-//TITLES PAGES
+//TITLES AND QUESTION PAGES
 const TITLE_HOME = 'Home';
-const QUESTION_PAGE = "Select the TestType";
 const TITLE_AUTORRUN = 'Test AUTORRUN';
-const QUESTION_PAGE_AUTORRUN = "Select the Test";
+const TITLE_REACTIONN = 'Test REACTIONN';
 const TITLE_WHENN = 'Test WHENN';
-const QUESTION_PAGE_WHENN = "Select the Test";
+const QUESTION_AUTORRUN = "EXECUCAO: CICLO\'0\' + CICLOS POSTERIORES";
+const QUESTION_REACTIONN = "EXECUCAO: CONTA TODOS QUE CUMPREM A CONDICAO (NAO CONTA CICLO\'0\')";
+const QUESTION_WHENN = "EXECUCAO: CICLO UNICO NA CONDICAO, indep. de cumprir a condicao nos ciclos posteriores";
+const QUESTION_GERAL = 'Select the test';
+
+//FLUSH-BAR TIME
+const FLSB_TIME = 3000;
 
 //ROUTES
 const HOME = '/';
 const AUTORRUN = '/autorrun';
+const REACTIONN = '/reactionn';
 const WHENN = '/whenn';
-//const AUTORUN = '/autorrun';
 

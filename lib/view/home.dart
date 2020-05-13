@@ -14,15 +14,19 @@ class _HomeState extends State<Home> {
         appBar: AppBar(title: Text(TITLE_HOME)),
         body: Center(
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(QUESTION_PAGE, style: Theme.of(context).textTheme.headline4),
+          Text(QUESTION_GERAL, style: Theme.of(context).textTheme.headline4),
           const SizedBox(height: 30),
           RaisedButton(
               onPressed: () => Modular.to.pushNamed(AUTORRUN),
               child: const Text('AutoRun', style: TextStyle(fontSize: 20))),
           const SizedBox(height: 30),
           RaisedButton(
+              onPressed: () => Modular.to.pushNamed(REACTIONN),
+              child: const Text('Reactionn', style: TextStyle(fontSize: 20))),
+          const SizedBox(height: 30),
+          RaisedButton(
               onPressed: () => Modular.to.pushNamed(WHENN),
-              child: const Text('When', style: TextStyle(fontSize: 20))),
+              child: const Text('Whenn', style: TextStyle(fontSize: 20))),
         ])));
   }
 }

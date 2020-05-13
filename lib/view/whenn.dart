@@ -12,54 +12,50 @@ class Whenn extends StatefulWidget {
 }
 
 class _WhennState extends State<Whenn> {
-  //instancia o service_store, dever ser feito em DI
   final store = ServStore();
 
-  //Lista de reactions, que e coletada, para ao fechar a view,
-  //ser disposada
   List<ReactionDisposer> disposers;
 
   @override
   void initState() {
-    disposers = [
-      // REACTION 02: EXECUCAO UNICA C/ "AUTO DISPOSE"
-      // RETORNA 'BOOLEANA'
-      when(
-          (r) => store.contObsv >= 10,
-          () => Flushbar(
-                  icon: Icon(Icons.notifications_active),
-                  title: "Opa",
-                  message: "E' maior ou igual ao NUMERO 10!!!",
-                  duration: Duration(milliseconds: 700))
-              .show(context)),
-    ];
+
+    //AUTO-DISPOSABLE: ONE-TIME REACTION, REGARDLESS THE `WHEN CONDITION` WILL BE FULLFILLED AGAIN
+
+    //OBSERVABLE TRACKED: are inside the 'Function When'
+    when((_) => store.contObsv >= 5, () {
+      print('This is greater than 05.');
+      Flushbar(
+              title: 'When: ONE-TIME REACTION - AUTODISPOSABLE',
+              message: 'Run when the OBSERVABLE TRACKED(${store.contObsv}) changes and it is greater then 05(\'Condition\')',
+              duration: Duration(milliseconds: FLSB_TIME))
+          .show(context);
+    });
 
     super.initState();
   }
 
   @override
-  void dispose() {
-    //DISPOSANDO A "REACTION 01" QUE POSSUI "DEPENDENCIA DE DISPOSE"
-    disposers.forEach((dispose) => dispose());
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    print('BuildHome');
+
     return Scaffold(
       appBar: AppBar(title: Text(TITLE_WHENN)),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(QUESTION_PAGE_WHENN),
+          Center(child: Text(QUESTION_WHENN, textAlign: TextAlign.center)),
           Observer(
             builder: (BuildContext context) =>
                 Text('${store.contObsv} buildObs', style: Theme.of(context).textTheme.headline3),
           )
         ]),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: store.incrementAction,
-        child: ICON_BUTTON,
+      floatingActionButton: Container(
+        padding: EdgeInsets.only(bottom: 100),
+        child: FloatingActionButton(
+          onPressed: store.incrementAction,
+          child: ICON_BUTTON,
+
+        ),
       ),
     );
   }
