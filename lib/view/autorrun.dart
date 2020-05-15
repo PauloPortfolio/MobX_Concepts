@@ -14,13 +14,13 @@ class Autorrun extends StatefulWidget {
 class _AutorrunState extends State<Autorrun> {
   final store = ServStore();
 
-  List<ReactionDisposer> disposers;
+  List<ReactionDisposer> _disposers;
 
   @override
   void initState() {
-    disposers = [
+    _disposers = [
       //OBSERVABLE TRACKED: are inside the 'Function Autorun'
-      //ZERO: was counted 'cause 'INITIALIZATION' is included here
+      //ZERO CICLE: was counted 'cause 'INITIALIZATION' is included here
       autorun((_) {
         print('Run in the INITIALIZATION(ZERO) AND each OBSERVABLE TRACKED(${store.contObsv}) changing after');
       })
@@ -31,7 +31,7 @@ class _AutorrunState extends State<Autorrun> {
 
   @override
   void dispose() {
-    disposers.forEach((dispose) => dispose());
+    _disposers.forEach((dispose) => dispose());
     super.dispose();
   }
 

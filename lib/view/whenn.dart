@@ -14,12 +14,11 @@ class Whenn extends StatefulWidget {
 class _WhennState extends State<Whenn> {
   final store = ServStore();
 
-  List<ReactionDisposer> disposers;
-
   @override
   void initState() {
 
-    //AUTO-DISPOSABLE: ONE-TIME REACTION, REGARDLESS THE `WHEN CONDITION` WILL BE FULLFILLED AGAIN
+    //AUTO-DISPOSABLE: ONE-TIME REACTION IN THE CONDITION
+    //REGARDLESS THE `WHEN CONDITION` WILL BE FULLFILLED AGAIN
 
     //OBSERVABLE TRACKED: are inside the 'Function When'
     when((_) => store.contObsv >= 5, () {

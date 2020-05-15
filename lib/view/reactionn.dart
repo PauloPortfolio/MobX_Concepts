@@ -15,21 +15,21 @@ class Reactionn extends StatefulWidget {
 class _ReactionnState extends State<Reactionn> {
   final store = ServStore();
 
-  List<ReactionDisposer> disposers;
+  List<ReactionDisposer> _disposers;
 
   @override
   void initState() {
-    disposers = [
+    _disposers = [
       //OBSERVABLE TRACKED: are inside the 'Function Reaction'
-      //ZERO: was not counted 'cause 'INITIALIZATION' is not included here
-      reaction<bool>(
-        (r) => store.contObsv % 2 == 0,
-        (isEven) {
-          if (isEven) {
+      //ZERO CICLE: was not counted 'cause 'INITIALIZATION' is not included here
+      reaction((_) => store.contObsv,
+        (value) {
+          print(value.toString());
+          if (value > 3 && value <=10) {
             Flushbar(
-                    title: 'Reaction ',
+                    title: 'Reaction',
                     message:
-                        'Run each OBSERVABLE TRACKED(${store.contObsv}) changing, FULLFILLING the \'Reaction condition(isEven - except ZERO because it is INITIALIZATION)\'',
+                        'Run each OBSERVABLE TRACKED(${value.toString()}) changing, FULLFILLING the \'Reaction condition(isEven - except ZERO because it is INITIALIZATION)\'',
                     duration: Duration(milliseconds: FLSB_TIME))
                 .show(context);
           }
@@ -42,7 +42,7 @@ class _ReactionnState extends State<Reactionn> {
 
   @override
   void dispose() {
-    disposers.forEach((dispose) => dispose());
+    _disposers.forEach((dispose) => dispose());
     super.dispose();
   }
 
@@ -55,10 +55,10 @@ class _ReactionnState extends State<Reactionn> {
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Center(child: Text(QUESTION_REACTIONN, textAlign: TextAlign.center)),
-          Observer(
-            builder: (BuildContext context) =>
+//          Observer(
+//            builder: (BuildContext context) =>
                 Text('${store.contObsv} buildObs', style: Theme.of(context).textTheme.headline3),
-          )
+//          )
         ]),
       ),
       floatingActionButton: FloatingActionButton(
